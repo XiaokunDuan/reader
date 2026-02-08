@@ -1,0 +1,26 @@
+# 智能论文阅读助手依赖
+
+# 浏览器自动化
+seleniumbase>=4.0.0
+selenium>=4.0.0
+undetected-chromedriver>=3.5.0
+
+# 终端界面
+rich>=13.0.0
+click>=8.0.0
+prompt-toolkit>=3.0.0
+
+# HTTP请求
+requests>=2.31.0
+httpx>=0.25.0
+
+# 数据处理
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+
+# 日志
+loguru>=0.7.0
+
+# 工具库
+python-dateutil>=2.8.0
+pillow>=10.0.0  # 图片处理

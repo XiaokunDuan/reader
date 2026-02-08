@@ -1,0 +1,49 @@
+# 智能论文阅读助手配置文件
+
+# Chrome浏览器配置
+chrome:
+  profile_name: "Default"
+  profile_path: ""  # 留空自动查找或填入具体路径
+  remote_debugging_port: 9222
+
+# DeepSeek API配置
+deepseek:
+  base_url: "https://qianfan.baidubce.com/v2"
+  api_key: "your-api-key-here"
+  model: "deepseek-v3.2"
+  timeout: 30
+  max_retries: 3
+
+# Obsidian配置
+obsidian:
+  vault_path: "/path/to/your/obsidian/vault"
+  assets_folder: "assets"
+  default_tags:
+    - "论文笔记"
+    - "AI生成"
+
+# AI Studio配置
+ai_studio:
+  url: "https://aistudio.google.com/prompts/new_chat"
+  wait_timeout: 120  # 等待回答超时时间(秒)
+  upload_timeout: 60
+
+# 交互模式配置
+interaction:
+  default_mode: "realtime"  # realtime | batch
+  auto_save_threshold: 0.7  # AI建议保存的置信度阈值
+  enable_follow_up: true
+  max_follow_up_depth: 5
+
+# 数据存储
+data:
+  queue_file: "data/queue.json"
+  history_file: "data/history.json"
+  cache_dir: "data/cache"
+
+# 日志配置
+logging:
+  level: "INFO"
+  file: "logs/app.log"
+  max_size_mb: 10
+  backup_count: 5
