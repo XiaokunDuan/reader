@@ -420,7 +420,7 @@ class CLI:
             return ("tree", None)
         elif cmd == "stats":
             return ("stats", None)
-        elif cmd in ["exit", "quit"]:
+        elif cmd in ["exit", "q"]:
             return ("exit", None)
         elif cmd == "help" or cmd == "?":
             return ("help", None)

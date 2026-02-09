@@ -1,0 +1,40 @@
+chrome:
+  profile_name: Profile 2
+  profile_path: /Users/dxk/Library/Application Support/Google/Chrome/Profile 2
+  remote_debugging_port: 9222
+obsidian:
+  vault_path: /Users/dxk/Repos/learning/Obsidian Vault
+  assets_folder: assets
+  default_tags:
+  - 论文笔记
+  - AI生成
+ai_service:
+  provider: baidu
+  baidu: &id001
+    base_url: https://qianfan.baidubce.com/v2
+    api_key: bce-v3/ALTAK-Hkq6OCEIz4i9M3GQeRr6V/e804c162546aecf2cd1d10d5b8043bb7eef0adc6
+    model: deepseek-v3.2
+    timeout: 30
+    max_retries: 3
+deepseek: *id001
+initial_questions:
+  enabled: false
+  questions: []
+ai_studio:
+  url: https://aistudio.google.com/prompts/new_chat
+  wait_timeout: 120
+  upload_timeout: 60
+interaction:
+  default_mode: realtime
+  auto_save_threshold: 0.7
+  enable_follow_up: true
+  max_follow_up_depth: 5
+data:
+  queue_file: data/queue.json
+  history_file: data/history.json
+  cache_dir: data/cache
+logging:
+  level: INFO
+  file: logs/app.log
+  max_size_mb: 10
+  backup_count: 5
