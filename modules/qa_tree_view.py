@@ -299,13 +299,15 @@ class QATreeView:
         console.print()
         
         # 提示
-        console.print("[dim]按任意键返回树形视图...[/dim]")
+        console.print("[dim]按任意键退出tree模式...[/dim]")
         
         # 等待按键
-        with keyboard.Listener(on_press=lambda key: self._on_return_from_details()):
-            time.sleep(0.5)  # 短暂等待避免立即返回
-            while self.running:
-                time.sleep(0.1)
+        try:
+            input()
+        except:
+            pass
+        
+        self.running = False
     
     def _on_return_from_details(self):
         """从详情页返回"""

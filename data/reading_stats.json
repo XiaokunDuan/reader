@@ -31,7 +31,95 @@
       "start_time": "2026-02-09T13:23:16.793506",
       "end_time": "2026-02-09T13:29:20.475948",
       "duration_seconds": 363.682442
+    },
+    {
+      "paper_title": "基于大模型验证增强的产业链知识图谱构建研究_郑傲泽",
+      "file_type": "document",
+      "questions": 0,
+      "start_time": "2026-02-09T13:33:38.541575",
+      "end_time": "2026-02-09T13:34:51.177252",
+      "duration_seconds": 72.635677
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T13:37:58.692568",
+      "end_time": "2026-02-09T13:38:32.960397",
+      "duration_seconds": 34.267829
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 2,
+      "start_time": "2026-02-09T13:38:56.268398",
+      "end_time": "2026-02-09T13:56:43.841627",
+      "duration_seconds": 1067.573229
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 1,
+      "start_time": "2026-02-09T14:07:07.627768",
+      "end_time": "2026-02-09T14:18:13.267648",
+      "duration_seconds": 665.63988
+    },
+    {
+      "paper_title": "基于大模型验证增强的产业链知识图谱构建研究_郑傲泽",
+      "file_type": "document",
+      "questions": 2,
+      "start_time": "2026-02-09T14:18:40.372422",
+      "end_time": "2026-02-09T14:25:15.325167",
+      "duration_seconds": 394.952745
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 2,
+      "start_time": "2026-02-09T14:25:49.709033",
+      "end_time": "2026-02-09T14:31:49.984167",
+      "duration_seconds": 360.275134
+    },
+    {
+      "paper_title": "截圖 2026-02-09 14.39.16",
+      "file_type": "image",
+      "questions": 0,
+      "start_time": "2026-02-09T14:39:22.619129",
+      "end_time": "2026-02-09T14:40:25.674289",
+      "duration_seconds": 63.05516
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 1,
+      "start_time": "2026-02-09T14:40:25.757083",
+      "end_time": "2026-02-09T14:49:10.473103",
+      "duration_seconds": 524.71602
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T14:49:39.540616",
+      "end_time": "2026-02-09T14:56:19.468343",
+      "duration_seconds": 399.927727
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T14:56:53.225960",
+      "end_time": "2026-02-09T15:18:55.353452",
+      "duration_seconds": 1322.127492
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T15:19:49.720249",
+      "end_time": "2026-02-09T15:20:10.372210",
+      "duration_seconds": 20.651961
     }
   ],
-  "last_updated": "2026-02-09T13:29:20.475997"
+  "last_updated": "2026-02-09T15:20:10.372365"
 }

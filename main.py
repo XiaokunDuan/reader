@@ -4,6 +4,7 @@
 import os
 import sys
 import yaml
+import argparse
 from loguru import logger
 
 from modules.browser import AIStudioController
@@ -629,7 +630,58 @@ class PaperReadingAssistant:
         self.browser.close()
 
 
-import argparse
+
+def check_accessibility_permissions() -> bool:
+    """
+    检查 macOS 辅助功能权限 (Accessibility)
+    
+    Returns:
+        bool: 是否有权限 (或者非macOS环境)
+    """
+    import platform
+    if platform.system() != "Darwin":
+        return True
+    
+    try:
+        # 使用 ctypes 调用 macOS原生 API AXIsProcessTrusted
+        from ctypes import cdll, c_bool
+        
+        # 加载 ApplicationServices 框架
+        # 注意：在某些 Python 环境中可能需要完整路径
+        app_services = cdll.LoadLibrary('/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices')
+        
+        # 定义函数签名
+        AXIsProcessTrusted = app_services.AXIsProcessTrusted
+        AXIsProcessTrusted.restype = c_bool
+        AXIsProcessTrusted.argtypes = []
+        
+        # 调用 API
+        is_trusted = AXIsProcessTrusted()
+        return is_trusted
+        
+    except Exception as e:
+        logger.warning(f"权限检测 API 调用失败: {e}")
+        # 如果调用失败，回退到旧方法或假设有权限
+        return True
+
+def show_permission_guide():
+    """显示权限设置指引"""
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.prompt import Confirm
+    
+    console = Console()
+    console.print()
+    console.print(Panel(
+        "[bold]提示：未检测到辅助功能权限 (Accessibility)[/bold]\n\n"
+        "程序的 [bold]对话树交互视图[/bold] 需要监听键盘事件，当前可能无法使用。\n"
+        "您可以直接继续运行，[bold]主要功能（阅读、提问）不受影响[/bold]。\n\n"
+        "[dim]如需完整体验，请在 系统设置 -> 隐私与安全性 -> 辅助功能 中开启终端权限。[/dim]",
+        title="权限检查",
+        border_style="green"
+    ))
+    
+    return Confirm.ask("是否继续运行？", default=True)
 
 def main():
     """主函数"""
@@ -638,7 +690,31 @@ def main():
     parser.add_argument("-v", "--verbose", action="store_true", help="显示详细日志")
     args = parser.parse_args()
     
+    # 权限检查
+    try:
+        # 使用更严格的检测方法：尝试监听一小段时间
+        # 注意：这只是一个近似检测，完美的检测需要 Object-C 桥接
+        pass 
+    except:
+        pass
+        
+    # 直接在 import 层面，如果 pynput 报错，会被下面的 try-catch 捕获吗？
+    # 我们把这部分逻辑放在 App 初始化前
+    
     app = PaperReadingAssistant(verbose=args.verbose)
+    # 启动前检查
+    import platform
+    if platform.system() == "Darwin":
+        try:
+            # 检查辅助功能权限
+            if not check_accessibility_permissions():
+                if not show_permission_guide():
+                    print("用户取消启动")
+                    return
+        except Exception as e:
+            # 不因为检测失败而阻止启动
+            pass
+
     app.run(initial_pdf_path=args.pdf)
 
 if __name__ == "__main__":
