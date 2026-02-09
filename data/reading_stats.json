@@ -1,0 +1,37 @@
+{
+  "sessions": [
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T12:50:24.707538",
+      "end_time": "2026-02-09T12:51:25.385712",
+      "duration_seconds": 60.678174
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 0,
+      "start_time": "2026-02-09T12:55:49.789979",
+      "end_time": "2026-02-09T12:56:19.656983",
+      "duration_seconds": 29.867004
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 2,
+      "start_time": "2026-02-09T12:56:50.367555",
+      "end_time": "2026-02-09T13:01:55.065599",
+      "duration_seconds": 304.698044
+    },
+    {
+      "paper_title": "www.youtube.com/watch",
+      "file_type": "youtube",
+      "questions": 1,
+      "start_time": "2026-02-09T13:23:16.793506",
+      "end_time": "2026-02-09T13:29:20.475948",
+      "duration_seconds": 363.682442
+    }
+  ],
+  "last_updated": "2026-02-09T13:29:20.475997"
+}

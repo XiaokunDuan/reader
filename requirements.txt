@@ -9,6 +9,7 @@ undetected-chromedriver>=3.5.0
 rich>=13.0.0
 click>=8.0.0
 prompt-toolkit>=3.0.0
+pynput>=1.7.0  # 键盘事件监听（对话树导航）
 
 # HTTP请求
 requests>=2.31.0

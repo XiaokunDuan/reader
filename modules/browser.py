@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from loguru import logger
+import socket
+from selenium.common.exceptions import SessionNotCreatedException, WebDriverException
 
 
 class AIStudioController:
@@ -39,40 +41,221 @@ class AIStudioController:
             
             logger.info("正在启动Chrome...")
             
-            # 使用Chrome Profile保持登录状态（参考用户的工作代码）
-            if profile_path and os.path.exists(profile_path):
+            # Use Chrome Profile to maintain login state (Referencing user's working code)
+            use_profile = bool(profile_path and os.path.exists(profile_path))
+            
+            if use_profile:
                 logger.info(f"使用Chrome Profile: {chrome_config.get('profile_name', 'default')}")
                 logger.info(f"调试端口: {port}")
-                
-                self.driver = Driver(
-                    uc=True,
-                    user_data_dir=profile_path,
-                    chromium_arg=f"--remote-debugging-port={port}",
-                    headless=False
-                )
             else:
                 logger.warning("未找到Chrome Profile，使用临时profile（需要重新登录）")
-                self.driver = Driver(uc=True, headless=False)
+
+            # 1. Check if port is already in use
+            if self._is_port_in_use(port):
+                logger.warning(f"端口 {port} 已被占用，尝试直接连接已存在的Chrome实例...")
+                try:
+                    self.driver = Driver(uc=True, headless=False, debugger_address=f"127.0.0.1:{port}")
+                    logger.success("✅ 成功连接到已存在的Chrome实例")
+                    # If connected, navigate to AI Studio
+                    self._navigate_to_ai_studio()
+                    return True
+                except Exception as e:
+                    logger.error(f"无法连接到现有的Chrome实例: {e}")
+                    logger.info("将尝试启动新实例（如果端口冲突可能会失败）...")
             
-            logger.success("✅ Chrome启动成功")
-            
-            # 导航到AI Studio
-            ai_studio_url = self.config['ai_studio']['url']
-            logger.info(f"正在导航到: {ai_studio_url}")
-            self.driver.get(ai_studio_url)
-            logger.success("✅ 已导航到AI Studio")
-            
-            # 等待页面加载
-            logger.info("等待页面加载...")
-            time.sleep(5)
-            
-            logger.success("✅ Chrome启动成功，AI Studio已就绪")
-            return True
+            # 2. Start new instance
+            try:
+                if use_profile:
+                    self.driver = Driver(
+                        uc=True,
+                        user_data_dir=profile_path,
+                        chromium_arg=f"--remote-debugging-port={port}",
+                        headless=False
+                    )
+                else:
+                    self.driver = Driver(uc=True, headless=False)
+                
+                logger.success("✅ Chrome启动成功")
+                self._navigate_to_ai_studio()
+                return True
+
+            except SessionNotCreatedException as e:
+                error_msg = str(e)
+                if "chrome not reachable" in error_msg or "DevToolsActivePort file doesn't exist" in error_msg:
+                    logger.warning(f"❌ 无法使用 Profile '{chrome_config.get('profile_name')}' (可能被占用)")
+                    logger.info("🔄 正在尝试使用临时 Profile 启动...")
+                    try:
+                        self.driver = Driver(uc=True, headless=False)
+                        logger.success("✅ 使用临时 Profile 启动成功 (请手动登录)")
+                        self._navigate_to_ai_studio()
+                        return True
+                    except Exception as fallback_e:
+                        logger.error(f"❌ 临时 Profile 启动也失败: {fallback_e}")
+                        return False
+                else:
+                    logger.error(f"❌ Chrome启动失败 (SessionNotCreated): {e}")
+                return False
+
+            except WebDriverException as e:
+                 logger.error(f"❌ Chrome启动失败 (WebDriverException): {e}")
+                 return False
             
         except Exception as e:
             logger.error(f"❌ 启动Chrome失败: {e}")
             logger.exception(e)
             return False
+
+    def _is_port_in_use(self, port: int) -> bool:
+        """检查端口是否被占用"""
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            return s.connect_ex(('127.0.0.1', port)) == 0
+
+    def _navigate_to_ai_studio(self):
+        """导航到AI Studio并等待加载"""
+        ai_studio_url = self.config['ai_studio']['url']
+        
+        # Check if already there
+        try:
+            if ai_studio_url in self.driver.current_url:
+                logger.info("当前已在AI Studio页面")
+                return
+        except:
+            pass
+
+        logger.info(f"正在导航到: {ai_studio_url}")
+        self.driver.get(ai_studio_url)
+        logger.success("✅ 已导航到AI Studio")
+        
+        # Wait for page load
+        logger.info("等待页面加载...")
+        time.sleep(3)
+        logger.success("✅ Chrome启动成功，AI Studio已就绪")
+    
+    def detect_file_type(self, file_path: str) -> str:
+        """
+        检测文件类型
+        
+        Returns:
+            'document' | 'image' | 'video' | 'audio' | 'unknown'
+        """
+        from pathlib import Path
+        
+        ext = Path(file_path).suffix.lower()
+        
+        type_map = {
+            # Documents
+            '.pdf': 'document',
+            '.doc': 'document',
+            '.docx': 'document',
+            '.txt': 'document',
+            
+            # Images
+            '.jpg': 'image',
+            '.jpeg': 'image',
+            '.png': 'image',
+            '.gif': 'image',
+            '.bmp': 'image',
+            '.webp': 'image',
+            
+            # Videos
+            '.mp4': 'video',
+            '.mov': 'video',
+            '.avi': 'video',
+            '.mkv': 'video',
+            '.webm': 'video',
+            
+            # Audio
+            '.mp3': 'audio',
+            '.wav': 'audio',
+            '.m4a': 'audio',
+            '.flac': 'audio',
+            '.ogg': 'audio',
+        }
+        
+        return type_map.get(ext, 'unknown')
+    
+    def is_url(self, input_str: str) -> bool:
+        """检测输入是否为URL"""
+        import re
+        url_pattern = re.compile(
+            r'^https?://'
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'
+            r'localhost|'
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+            r'(?::\d+)?'
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+        return bool(url_pattern.match(input_str))
+    
+    def detect_url_type(self, url: str) -> str:
+        """检测URL类型"""
+        url_lower = url.lower()
+        
+        # YouTube
+        if 'youtube.com' in url_lower or 'youtu.be' in url_lower:
+            return 'youtube'
+        
+        # 视频网站
+        if any(site in url_lower for site in ['vimeo.com', 'bilibili.com', 'tiktok.com']):
+            return 'video_site'
+        
+        # 学术网站
+        if any(site in url_lower for site in ['arxiv.org', 'scholar.google', 'semanticscholar.org']):
+            return 'academic'
+        
+        # GitHub
+        if 'github.com' in url_lower:
+            return 'github'
+        
+        return 'webpage'
+    
+    def send_url(self, url: str) -> bool:
+        """
+        发送URL到AI Studio（像文字一样粘贴进去）
+        
+        Args:
+            url: 网页链接（支持YouTube、网页等）
+        
+        Returns:
+            bool: 发送是否成功
+        """
+        try:
+            url_type = self.detect_url_type(url)
+            logger.info(f"发送{url_type}链接: {url}")
+            
+            # 定位输入框
+            textarea_selector = "textarea"
+            self.driver.wait_for_element(textarea_selector, timeout=10)
+            
+            # 清空并输入URL
+            textarea = self.driver.find_element(By.CSS_SELECTOR, textarea_selector)
+            textarea.clear()
+            textarea.send_keys(url)
+            
+            logger.info("✅ URL已输入到AI Studio")
+            return True
+            
+        except Exception as e:
+            logger.error(f"发送URL失败: {e}")
+            return False
+    
+    def upload_file(self, file_path: str) -> tuple[bool, str]:
+        """
+        上传文件到AI Studio（支持多种格式）
+        
+        Args:
+            file_path: 文件路径
+        
+        Returns:
+            (success, file_type)
+        """
+        file_type = self.detect_file_type(file_path)
+        
+        if file_type == 'unknown':
+            logger.warning(f"未知文件类型: {file_path}")
+        
+        # 使用统一的上传方法
+        success = self.upload_pdf(file_path)
+        return success, file_type
     
     def upload_pdf(self, pdf_path: str) -> bool:
         """

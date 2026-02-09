@@ -1,12 +1,67 @@
-# 智能论文阅读助手配置文件
+# ========================================
+# 智能论文阅读助手 - 配置文件
+# ========================================
+# 
+# 💡 提示: 可以使用 setup_helper.py 自动生成此配置文件
+#    运行: python setup_helper.py
+#
 
-# Chrome浏览器配置
+# ========================================
+# Chrome 浏览器配置
+# ========================================
 chrome:
+  # Profile 名称 (常见: Default, Profile 1, Profile 2)
+  # 提示: macOS 运行此命令查看: ls ~/Library/Application\ Support/Google/Chrome/
   profile_name: "Default"
-  profile_path: ""  # 留空自动查找或填入具体路径
+  
+  # Profile 完整路径 (留空则自动检测)
+  # macOS示例: /Users/yourname/Library/Application Support/Google/Chrome/Default
+  # Windows示例: C:\Users\yourname\AppData\Local\Google\Chrome\User Data\Default
+  profile_path: ""
+  
+  # 远程调试端口 (默认9222, 如果被占用可改为9230等)
   remote_debugging_port: 9222
 
-# DeepSeek API配置
+# ========================================
+# AI 服务配置 (支持多种服务)
+# ========================================
+ai_service:
+  # 选择使用的AI服务: baidu | openai | claude | ollama
+  provider: "baidu"
+  
+  # ===== 百度千帆 (DeepSeek) =====
+  baidu:
+    base_url: "https://qianfan.baidubce.com/v2"
+    api_key: "your-api-key-here"  # 👈 填入你的 API Key
+    model: "deepseek-v3.2"
+    timeout: 30
+    max_retries: 3
+  
+  # ===== OpenAI =====
+  openai:
+    api_key: "sk-..."  # 👈 填入你的 OpenAI API Key
+    model: "gpt-4"  # 可选: gpt-4, gpt-4-turbo, gpt-3.5-turbo
+    base_url: "https://api.openai.com/v1"  # 兼容API可修改此项
+    timeout: 30
+    max_retries: 3
+  
+  # ===== Anthropic Claude =====
+  claude:
+    api_key: "sk-ant-..."  # 👈 填入你的 Claude API Key
+    model: "claude-3-5-sonnet-20241022"  # 或 claude-3-opus-20240229
+    timeout: 30
+    max_retries: 3
+  
+  # ===== Ollama (本地 LLM) =====
+  ollama:
+    base_url: "http://localhost:11434"
+    model: "llama3"  # 或 mistral, qwen, deepseek-r1 等
+    timeout: 60
+    max_retries: 3
+
+# ========================================
+# DeepSeek 配置 (向后兼容, 新配置请使用 ai_service)
+# ========================================
 deepseek:
   base_url: "https://qianfan.baidubce.com/v2"
   api_key: "your-api-key-here"
@@ -14,36 +69,67 @@ deepseek:
   timeout: 30
   max_retries: 3
 
-# Obsidian配置
+# ========================================
+# Obsidian 配置
+# ========================================
 obsidian:
-  vault_path: "/path/to/your/obsidian/vault"
+  # Vault 路径
+  # 提示: macOS/Linux 运行此命令查找: find ~ -name ".obsidian" -type d 2>/dev/null
+  # 示例: /Users/yourname/Documents/MyObsidianVault
+  vault_path: "/path/to/your/obsidian/vault"  # 👈 修改为你的 Vault 路径
+  
+  # 资源文件夹名称
   assets_folder: "assets"
+  
+  # 默认标签
   default_tags:
     - "论文笔记"
     - "AI生成"
 
-# AI Studio配置
+# ========================================
+# AI Studio 配置
+# ========================================
 ai_studio:
   url: "https://aistudio.google.com/prompts/new_chat"
-  wait_timeout: 120  # 等待回答超时时间(秒)
-  upload_timeout: 60
+  wait_timeout: 120  # 等待AI回答超时时间(秒)
+  upload_timeout: 60  # PDF上传超时时间(秒)
 
+# ========================================
+# 初始问题配置 (PDF上传后自动提问)
+# ========================================
+initial_questions:
+  # 是否启用自动提问
+  enabled: true
+  
+  # 问题列表 (可自定义, 支持多个)
+  questions:
+    - "这篇论文讲了什么"
+    # - "这篇论文的核心创新点是什么"
+    # - "这篇论文使用了什么方法"
+    # - "这篇论文的实验结果如何"
+
+# ========================================
 # 交互模式配置
+# ========================================
 interaction:
-  default_mode: "realtime"  # realtime | batch
-  auto_save_threshold: 0.7  # AI建议保存的置信度阈值
-  enable_follow_up: true
-  max_follow_up_depth: 5
+  default_mode: "realtime"  # realtime: 实时交互 | batch: 批处理模式
+  auto_save_threshold: 0.7  # AI建议保存的置信度阈值 (0.0-1.0)
+  enable_follow_up: true  # 是否启用追问功能
+  max_follow_up_depth: 5  # 最大追问深度
 
-# 数据存储
+# ========================================
+# 数据存储配置
+# ========================================
 data:
   queue_file: "data/queue.json"
   history_file: "data/history.json"
   cache_dir: "data/cache"
 
+# ========================================
 # 日志配置
+# ========================================
 logging:
-  level: "INFO"
+  level: "INFO"  # DEBUG | INFO | WARNING | ERROR
   file: "logs/app.log"
-  max_size_mb: 10
-  backup_count: 5
+  max_size_mb: 10  # 单个日志文件最大大小
+  backup_count: 5  # 保留的日志备份数量

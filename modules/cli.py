@@ -118,20 +118,35 @@ class CLI:
         self.console.print()
     
     def prompt_pdf_path(self) -> str:
-        """提示用户输入PDF路径"""
+        """提示用户输入PDF路径（向后兼容）"""
+        return self.prompt_input_path()
+    
+    def prompt_input_path(self) -> str:
+        """提示用户输入文件路径或URL"""
         self.console.print()
         prompt_text = Text()
-        prompt_text.append("📄 ", style="bold")
-        prompt_text.append("请拖拽 PDF 文件到终端", style=f"bold {THEME['primary']}")
-        prompt_text.append(" (或输入路径)", style=THEME['muted'])
+        prompt_text.append("📎 ", style="bold")
+        prompt_text.append("请输入内容来源", style=f"bold {THEME['primary']}")
         self.console.print(prompt_text)
         
-        pdf_path = Prompt.ask(f"[{THEME['secondary']}]❯[/] PDF 路径").strip()
+        # 支持的类型提示
+        types_hint = Text()
+        types_hint.append("   支持: ", style=THEME['muted'])
+        types_hint.append("📄 PDF/文档 ", style=THEME['muted'])
+        types_hint.append("│ ", style=THEME['border'])
+        types_hint.append("🖼️  图片 ", style=THEME['muted'])
+        types_hint.append("│ ", style=THEME['border'])
+        types_hint.append("🎬 视频 ", style=THEME['muted'])
+        types_hint.append("│ ", style=THEME['border'])
+        types_hint.append("🔗 YouTube/网页链接", style=THEME['muted'])
+        self.console.print(types_hint)
+        
+        input_path = Prompt.ask(f"[{THEME['secondary']}]❯[/] 路径或URL").strip()
         
         # 处理拖拽文件时可能带的引号
-        pdf_path = pdf_path.strip("'\"")
+        input_path = input_path.strip("'\"")
         
-        return pdf_path
+        return input_path
     
     def add_question(self, question: str):
         """添加问题到队列"""
@@ -216,7 +231,7 @@ class CLI:
         
         choice = Prompt.ask(
             f"[{THEME['secondary']}]❯[/] 选择",
-            choices=["s", "n", "f", "a", "x"],
+            choices=["s", "f", "n", "a", "x"],
             default="n"
         )
         
@@ -330,6 +345,35 @@ class CLI:
             spinner_style=THEME['secondary']
         )
     
+    def show_template_list(self, templates: list):
+        """显示模板列表"""
+        from rich.table import Table
+        
+        table = Table(
+            title="[bold]📋 问题模板[/]",
+            box=box.ROUNDED,
+            border_style=THEME['border'],
+            title_style=THEME['primary'],
+            header_style=f"bold {THEME['primary']}",
+        )
+        table.add_column("名称", style=THEME['secondary'], width=20)
+        table.add_column("描述", style="white", width=40)
+        table.add_column("分类", style=THEME['muted'], width=10)
+        table.add_column("问题数", style=THEME['accent'], width=8, justify="center")
+        
+        for template in templates:
+            table.add_row(
+                template.name,
+                template.description[:40] + "..." if len(template.description) > 40 else template.description,
+                template.category,
+                str(len(template.questions))
+            )
+        
+        self.console.print("\n")
+        self.console.print(table)
+        self.console.print(f"\n[{THEME['muted']}]使用示例: template use paper_reading[/]")
+        self.console.print(f"[{THEME['muted']}]创建模板: template create[/]")
+    
     def interactive_mode(self) -> str:
         """交互式命令输入模式"""
         self.console.print()
@@ -358,12 +402,22 @@ class CLI:
             return ("edit", cmd[5:].strip())
         elif cmd.startswith("remove "):
             return ("remove", cmd[7:].strip())
+        elif cmd.startswith("template "):
+            return ("template", cmd[9:].strip())
+        elif cmd == "template":
+            return ("template", "list")
+        elif cmd.startswith("upload "):
+            return ("upload", cmd[7:].strip())
+        elif cmd == "upload":
+            return ("upload", None)
         elif cmd == "list":
             return ("list", None)
         elif cmd == "run":
             return ("run", None)
         elif cmd == "clear":
             return ("clear", None)
+        elif cmd == "tree":
+            return ("tree", None)
         elif cmd == "stats":
             return ("stats", None)
         elif cmd in ["exit", "quit"]:
@@ -382,6 +436,9 @@ class CLI:
             ("q: <问题>", "添加问题到队列"),
             ("list", "查看问题队列"),
             ("run", "执行队列中的问题"),
+            ("upload", "更换/上传内容 (支持URL)"),
+            ("tree", "查看对话历史树"),
+            ("template", "模板管理 (list/use/create)"),
             ("clear", "清空问题队列"),
             ("exit", "退出程序"),
         ]

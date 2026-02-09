@@ -1,14 +1,14 @@
 """
-知识管理模块 - 使用DeepSeek API进行智能归类
+知识管理模块 - 使用AI进行智能归类
 """
 import json
-import requests
 from typing import Dict, Optional
 from loguru import logger
+from modules.ai_adapter import create_ai_adapter, AIServiceAdapter
 
 
 class KnowledgeAnalyzer:
-    """知识分析器 - 使用DeepSeek进行智能归类"""
+    """知识分析器 - 使用AI进行智能归类"""
     
     def __init__(self, config: dict, vault_structure: Dict = None):
         """
@@ -21,11 +21,10 @@ class KnowledgeAnalyzer:
         self.config = config
         self.vault_structure = vault_structure or {'folders': [], 'notes': []}
         
-        self.base_url = config['deepseek']['base_url']
-        self.api_key = config['deepseek']['api_key']
-        self.model = config['deepseek']['model']
-        self.timeout = config['deepseek']['timeout']
-        self.max_retries = config['deepseek']['max_retries']
+        # 使用AI适配器
+        self.ai_adapter: AIServiceAdapter = create_ai_adapter(config)
+        logger.info(f"知识分析器初始化完成，使用AI服务: {config.get('ai_service', {}).get('provider', 'baidu')}")
+
     
     def analyze_placement(
         self,
@@ -115,7 +114,7 @@ class KnowledgeAnalyzer:
     
     def _call_api(self, prompt: str) -> Optional[str]:
         """
-        调用DeepSeek API
+        调用AI API
         
         Args:
             prompt: 提示词
@@ -123,45 +122,21 @@ class KnowledgeAnalyzer:
         Returns:
             str: API响应文本
         """
-        url = f"{self.base_url}/chat/completions"
-        
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        
-        payload = {
-            "model": self.model,
-            "messages": [
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            "temperature": 0.3,  # 较低温度，更确定性的输出
-            "max_tokens": 1000
-        }
-        
-        for attempt in range(self.max_retries):
-            try:
-                response = requests.post(
-                    url,
-                    headers=headers,
-                    json=payload,
-                    timeout=self.timeout
-                )
+        try:
+            logger.info("正在调用AI服务...")
+            response = self.ai_adapter.call_api(prompt)
+            
+            if response:
+                logger.success("AI服务调用成功")
+                return response
+            else:
+                logger.warning("AI服务调用失败")
+                return None
                 
-                if response.status_code == 200:
-                    data = response.json()
-                    content = data['choices'][0]['message']['content']
-                    return content
-                else:
-                    logger.warning(f"API调用失败 (尝试 {attempt+1}/{self.max_retries}): {response.status_code}")
-                    
-            except Exception as e:
-                logger.warning(f"API调用异常 (尝试 {attempt+1}/{self.max_retries}): {e}")
-        
-        return None
+        except Exception as e:
+            logger.error(f"调用AI服务时出错: {e}")
+            return None
+
     
     def _parse_response(self, response: str) -> Dict:
         """
