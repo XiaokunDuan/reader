@@ -135,7 +135,111 @@
       "start_time": "2026-02-09T15:41:25.705902",
       "end_time": "2026-02-09T15:41:52.724587",
       "duration_seconds": 27.018685
+    },
+    {
+      "paper_title": "dolgui2017",
+      "file_type": "document",
+      "questions": 1,
+      "start_time": "2026-02-09T16:04:58.509564",
+      "end_time": "2026-02-09T16:07:22.227031",
+      "duration_seconds": 143.717467
+    },
+    {
+      "paper_title": "dolgui2017",
+      "file_type": "document",
+      "questions": 2,
+      "start_time": "2026-02-09T16:08:41.251781",
+      "end_time": "2026-02-09T16:12:38.159123",
+      "duration_seconds": 236.907342
+    },
+    {
+      "paper_title": "基于大模型验证增强的产业链知识图谱构建研究_郑傲泽",
+      "file_type": "document",
+      "questions": 6,
+      "start_time": "2026-02-09T21:46:59.406777",
+      "end_time": "2026-02-09T22:25:15.340299",
+      "duration_seconds": 2295.933522
+    },
+    {
+      "paper_title": "基于大模型验证增强的产业链知识图谱构建研究_郑傲泽",
+      "file_type": "document",
+      "questions": 2,
+      "start_time": "2026-02-09T22:29:03.817308",
+      "end_time": "2026-02-09T22:45:12.746731",
+      "duration_seconds": 968.929423
+    },
+    {
+      "paper_title": "ChatIE",
+      "file_type": "document",
+      "questions": 6,
+      "start_time": "2026-02-09T22:45:16.324480",
+      "end_time": "2026-02-09T23:01:39.308809",
+      "duration_seconds": 982.984329
+    },
+    {
+      "paper_title": "GPT-NER",
+      "file_type": "document",
+      "questions": 2,
+      "start_time": "2026-02-09T23:01:42.888543",
+      "end_time": "2026-02-10T23:28:02.563428",
+      "duration_seconds": 87979.674885
+    },
+    {
+      "paper_title": "Wei …等 - 2024 - ChatIE Zero-Shot Information Extraction via Chatting with ChatGPT",
+      "file_type": "document",
+      "questions": 0,
+      "start_time": "2026-02-11T11:23:23.839196",
+      "end_time": "2026-02-11T11:23:25.257510",
+      "duration_seconds": 1.418314
+    },
+    {
+      "paper_title": "Wei …等 - 2024 - ChatIE Zero-Shot Information Extraction via Chatting with ChatGPT",
+      "file_type": "document",
+      "questions": 5,
+      "start_time": "2026-02-11T11:24:18.605972",
+      "end_time": "2026-02-11T11:46:29.806426",
+      "duration_seconds": 1331.200454
+    },
+    {
+      "paper_title": "截圖 2026-02-11 11.46.25",
+      "file_type": "image",
+      "questions": 2,
+      "start_time": "2026-02-11T11:46:33.396225",
+      "end_time": "2026-02-11T11:50:29.936180",
+      "duration_seconds": 236.539955
+    },
+    {
+      "paper_title": "Wang …等 - 2023 - GPT-NER Named Entity Recognition via Large Language Models",
+      "file_type": "document",
+      "questions": 3,
+      "start_time": "2026-02-11T11:50:33.500627",
+      "end_time": "2026-02-11T12:01:25.691100",
+      "duration_seconds": 652.190473
+    },
+    {
+      "paper_title": "Wang …等 - 2023 - GPT-NER Named Entity Recognition via Large Language Models",
+      "file_type": "document",
+      "questions": 4,
+      "start_time": "2026-02-11T12:01:58.415156",
+      "end_time": "2026-02-11T12:23:09.961462",
+      "duration_seconds": 1271.546306
+    },
+    {
+      "paper_title": "基于大模型验证增强的产业链知识图谱构建研究_郑傲泽",
+      "file_type": "document",
+      "questions": 6,
+      "start_time": "2026-02-11T12:23:13.529591",
+      "end_time": "2026-02-11T13:16:58.463240",
+      "duration_seconds": 3224.933649
+    },
+    {
+      "paper_title": "Zhang和Mu - 2021 - Research on Search Method of Knowledge Graph of Supply Chain Risk Based on Cascading Effect",
+      "file_type": "document",
+      "questions": 3,
+      "start_time": "2026-02-11T13:17:45.102608",
+      "end_time": "2026-02-11T13:29:33.984141",
+      "duration_seconds": 708.881533
     }
   ],
-  "last_updated": "2026-02-09T15:41:52.724777"
+  "last_updated": "2026-02-11T13:29:33.984794"
 }

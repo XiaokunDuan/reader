@@ -1,6 +1,6 @@
 chrome:
-  profile_name: Profile 2
-  profile_path: /Users/dxk/Library/Application Support/Google/Chrome/Profile 2
+  profile_name: Profile 3
+  profile_path: /Users/dxk/Library/Application Support/Google/Chrome/Profile 3
   remote_debugging_port: 9222
 obsidian:
   vault_path: /Users/dxk/Repos/learning/Obsidian Vault
@@ -12,14 +12,15 @@ ai_service:
   provider: baidu
   baidu: &id001
     base_url: https://qianfan.baidubce.com/v2
-    api_key: bce-v3/ALTAK-Hkq6OCEIz4i9M3GQeRr6V/e804c162546aecf2cd1d10d5b8043bb7eef0adc6
+    api_key: 'bce-v3/ALTAK-Hkq6OCEIz4i9M3GQeRr6V/e804c162546aecf2cd1d10d5b8043bb7eef0adc6'
     model: deepseek-v3.2
     timeout: 30
     max_retries: 3
 deepseek: *id001
 initial_questions:
-  enabled: false
-  questions: []
+  enabled: true
+  questions:
+  - 这篇论文讲了什么原理
 ai_studio:
   url: https://aistudio.google.com/prompts/new_chat
   wait_timeout: 120
