@@ -1,0 +1,146 @@
+{
+  "url": "https://www.youtube.com/playlist?list=PL49CF3715CB9EF31D",
+  "videos": [
+    {
+      "title": "Lec 1 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=ZK3O402wf1c"
+    },
+    {
+      "title": "2. Elimination with Matrices.",
+      "url": "https://www.youtube.com/watch?v=QVKj3LADCnA"
+    },
+    {
+      "title": "3. Multiplication and Inverse Matrices",
+      "url": "https://www.youtube.com/watch?v=FX4C-JpTFgY"
+    },
+    {
+      "title": "Lec 4 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=5hO3MrzPa0A"
+    },
+    {
+      "title": "5. Transposes, Permutations, Spaces R^n",
+      "url": "https://www.youtube.com/watch?v=JibVXBElKL0"
+    },
+    {
+      "title": "6. Column Space and Nullspace",
+      "url": "https://www.youtube.com/watch?v=8o5Cmfpeo6g"
+    },
+    {
+      "title": "7. Solving Ax = 0: Pivot Variables, Special Solutions",
+      "url": "https://www.youtube.com/watch?v=VqP2tREMvt0"
+    },
+    {
+      "title": "8. Solving Ax = b: Row Reduced Form R",
+      "url": "https://www.youtube.com/watch?v=9Q1q7s1jTzU"
+    },
+    {
+      "title": "9. Independence, Basis, and Dimension",
+      "url": "https://www.youtube.com/watch?v=yjBerM5jWsc"
+    },
+    {
+      "title": "10. The Four Fundamental Subspaces",
+      "url": "https://www.youtube.com/watch?v=nHlE7EgJFds"
+    },
+    {
+      "title": "11. Matrix Spaces; Rank 1; Small World Graphs",
+      "url": "https://www.youtube.com/watch?v=2IdtqGM6KWU"
+    },
+    {
+      "title": "12. Graphs, Networks, Incidence Matrices",
+      "url": "https://www.youtube.com/watch?v=6-wh6yvk6uc"
+    },
+    {
+      "title": "13. Quiz 1 Review",
+      "url": "https://www.youtube.com/watch?v=l88D4r74gtM"
+    },
+    {
+      "title": "14. Orthogonal Vectors and Subspaces",
+      "url": "https://www.youtube.com/watch?v=YzZUIYRCE38"
+    },
+    {
+      "title": "15. Projections onto Subspaces",
+      "url": "https://www.youtube.com/watch?v=Y_Ac6KiQ1t0"
+    },
+    {
+      "title": "16. Projection Matrices and Least Squares",
+      "url": "https://www.youtube.com/watch?v=osh80YCg_GM"
+    },
+    {
+      "title": "Lec 17 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=uNsCkP9mgRk"
+    },
+    {
+      "title": "18. Properties of Determinants",
+      "url": "https://www.youtube.com/watch?v=srxexLishgY"
+    },
+    {
+      "title": "19. Determinant Formulas and Cofactors",
+      "url": "https://www.youtube.com/watch?v=23LLB9mNJvc"
+    },
+    {
+      "title": "20. Cramer's Rule, Inverse Matrix, and Volume",
+      "url": "https://www.youtube.com/watch?v=QNpj-gOXW9M"
+    },
+    {
+      "title": "Lec 21 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=lXNXrLcoerU"
+    },
+    {
+      "title": "22. Diagonalization and Powers of A",
+      "url": "https://www.youtube.com/watch?v=13r9QY6cmjc"
+    },
+    {
+      "title": "23. Differential Equations and exp(At)",
+      "url": "https://www.youtube.com/watch?v=IZqwi0wJovM"
+    },
+    {
+      "title": "Lec 24 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=8MF3pz-oYHo"
+    },
+    {
+      "title": "Lec 24b  | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=sFxA8eIS6tA"
+    },
+    {
+      "title": "Lec 25 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=umt6BB1nJ4w"
+    },
+    {
+      "title": "26. Complex Matrices; Fast Fourier Transform",
+      "url": "https://www.youtube.com/watch?v=M0Sa8fLOajA"
+    },
+    {
+      "title": "27. Positive Definite Matrices and Minima",
+      "url": "https://www.youtube.com/watch?v=vF7eyJ2g3kU"
+    },
+    {
+      "title": "Lec 28 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=z_zYQHmrh08"
+    },
+    {
+      "title": "Lec 29 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=Nx0lRBaXoz4"
+    },
+    {
+      "title": "30. Linear Transformations and Their Matrices",
+      "url": "https://www.youtube.com/watch?v=Ts3o2I8_Mxc"
+    },
+    {
+      "title": "Lec 31 | MIT 18.06 Linear Algebra, Spring 2005",
+      "url": "https://www.youtube.com/watch?v=vGkn-3NFGck"
+    },
+    {
+      "title": "32. Quiz 3 Review",
+      "url": "https://www.youtube.com/watch?v=HgC1l_6ySkc"
+    },
+    {
+      "title": "33. Left and Right Inverses; Pseudoinverse",
+      "url": "https://www.youtube.com/watch?v=Go2aLo7ZOlU"
+    },
+    {
+      "title": "34. Final Course Review",
+      "url": "https://www.youtube.com/watch?v=RWvi4Vx4CDc"
+    }
+  ],
+  "fetched": "2026-03-01 21:03"
+}
